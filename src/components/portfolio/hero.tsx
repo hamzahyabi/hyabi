@@ -81,7 +81,7 @@ export function Hero() {
           className="mt-10 flex flex-wrap items-center justify-center gap-3"
         >
           <Button asChild size="lg" className="group rounded-full">
-            <a href="/Hamza-Hyabi-CV.pdf" download>
+            <a href="/CV-Hamza-Hyabi.pdf" download>
               <Download className="mr-1 h-4 w-4" />
               Télécharger mon CV / Download CV
             </a>
