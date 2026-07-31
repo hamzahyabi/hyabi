@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Mail, Sparkles } from "lucide-react";
+import { ArrowRight, Download, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Dither from "./dither";
@@ -8,11 +8,11 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative flex min-h-svh items-center justify-center overflow-hidden px-4 pt-24"
+      className="dark relative flex min-h-svh items-center justify-center overflow-hidden bg-background px-4 pt-24 text-foreground"
     >
       <div aria-hidden className="absolute inset-0 z-0">
         <Dither
-          waveColor={[0.19215686274509805, 0.20392156862745098, 0.5803921568627451]}
+          waveColor={[0.16, 0.32, 0.75]}
           disableAnimation={false}
           enableMouseInteraction={true}
           mouseRadius={0.3}
@@ -35,9 +35,9 @@ export function Hero() {
             variant="outline"
             className="gap-1.5 rounded-full border-border/60 bg-background/40 px-3 py-1 backdrop-blur-md"
           >
-            <Sparkles className="h-3 w-3" />
+            <span className="h-1.5 w-1.5 rounded-full bg-primary" />
             <span className="text-xs font-medium text-muted-foreground">
-              Available for new projects
+              Open to IT support, helpdesk & junior dev roles — and freelance web projects
             </span>
           </Badge>
         </motion.div>
@@ -57,9 +57,9 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mt-4 text-lg font-medium text-muted-foreground sm:text-xl"
         >
-          Software Engineering Student
+          Client Support Specialist
           <span className="mx-2 text-muted-foreground/40">|</span>
-          Automation & AI Builder
+          Web & Automation Freelancer
         </motion.p>
 
         <motion.p
@@ -68,8 +68,10 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mt-6 max-w-2xl text-balance leading-7 text-muted-foreground"
         >
-          I build systems, automation workflows, and modern web experiences
-          that solve real problems.
+          I turn high-pressure client interactions into positive outcomes, and I
+          build the automation workflows and websites that keep small
+          businesses running smoothly. Trilingual, autonomous, and
+          remote-work ready.
         </motion.p>
 
         <motion.div
@@ -79,9 +81,9 @@ export function Hero() {
           className="mt-10 flex flex-wrap items-center justify-center gap-3"
         >
           <Button asChild size="lg" className="group rounded-full">
-            <a href="#projects">
-              View Projects
-              <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            <a href="/Hamza-Hyabi-CV.pdf" download>
+              <Download className="mr-1 h-4 w-4" />
+              Télécharger mon CV / Download CV
             </a>
           </Button>
           <Button
@@ -92,22 +94,37 @@ export function Hero() {
           >
             <a href="#contact">
               <Mail className="mr-1 h-4 w-4" />
-              Contact Me
+              Me contacter / Contact Me
             </a>
           </Button>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.55 }}
+          className="mt-4"
+        >
+          <a
+            href="#community"
+            className="group inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+          >
+            See the community project that proves it
+            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+          </a>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
-          className="mt-20 flex items-center gap-8 text-xs uppercase tracking-widest text-muted-foreground/60"
+          className="mt-16 flex items-center gap-8 text-xs uppercase tracking-widest text-muted-foreground/60"
         >
+          <span>Client Support</span>
+          <span className="h-px w-6 bg-border" />
           <span>Automation</span>
           <span className="h-px w-6 bg-border" />
-          <span>Backend</span>
-          <span className="h-px w-6 bg-border" />
-          <span>AI</span>
+          <span>Web Design</span>
         </motion.div>
       </div>
     </section>

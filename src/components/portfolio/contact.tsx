@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Send, Loader as Loader2, Check } from "lucide-react";
+import { Mail, Phone, MapPin, Send } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "./icons";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -8,58 +8,54 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { supabase } from "@/lib/supabase";
 import { SectionHeading } from "./section-heading";
 
-const contacts = [
+const CONTACT_EMAIL = "hamza.hyabi@hotmail.com";
+
+const details = [
+  {
+    icon: Phone,
+    label: "Phone",
+    value: "+212 621162904",
+    href: "tel:+212621162904",
+  },
   {
     icon: Mail,
     label: "Email",
-    value: "hamzahyabi0@gmail.com",
-    href: "mailto:hamzahyabi0@gmail.com",
+    value: CONTACT_EMAIL,
+    href: `mailto:${CONTACT_EMAIL}`,
   },
   {
-    icon: LinkedinIcon,
-    label: "LinkedIn",
-    value: "hamzahyabi",
-    href: "https://www.linkedin.com/in/hamzahyabi/",
+    icon: MapPin,
+    label: "Location",
+    value: "Casablanca, Morocco",
+    href: undefined,
   },
-  {
-    icon: GithubIcon,
-    label: "GitHub",
-    value: "HamzaHyabi",
-    href: "https://github.com/HamzaHyabi",
-  },
+];
+
+const socials = [
+  { icon: LinkedinIcon, href: "https://www.linkedin.com/in/hamzahyabi/", label: "LinkedIn" },
+  { icon: GithubIcon, href: "https://github.com/HamzaHyabi", label: "GitHub" },
 ];
 
 export function Contact() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [sent, setSent] = useState(false);
 
-  const onSubmit = async (e: React.FormEvent) => {
+  const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim() || !email.trim() || !message.trim()) {
       toast.error("Please fill in all fields.");
       return;
     }
-    setLoading(true);
-    const { error } = await supabase
-      .from("contact_messages")
-      .insert({ name, email, message });
-    setLoading(false);
-    if (error) {
-      toast.error("Something went wrong. Please try again.");
-      return;
-    }
-    toast.success("Message sent. I'll get back to you soon.");
-    setSent(true);
-    setName("");
-    setEmail("");
-    setMessage("");
-    setTimeout(() => setSent(false), 2500);
+    const subject = `Portfolio contact from ${name}`;
+    const body = `${message}\n\n— ${name} (${email})`;
+    const mailto = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailto;
+    toast.success("Opening your email app — send when you're ready.");
   };
 
   return (
@@ -87,14 +83,9 @@ export function Contact() {
                 I reply to most messages within 24 hours.
               </p>
               <ul className="mt-6 space-y-3">
-                {contacts.map((c) => (
-                  <li key={c.label}>
-                    <a
-                      href={c.href}
-                      target={c.href.startsWith("http") ? "_blank" : undefined}
-                      rel="noopener noreferrer"
-                      className="group flex items-center gap-3 rounded-xl border border-border/60 bg-background/40 p-3 transition-all hover:border-border hover:bg-accent/30"
-                    >
+                {details.map((c) => {
+                  const content = (
+                    <>
                       <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-border/60 bg-background/60">
                         <c.icon className="h-4 w-4" />
                       </div>
@@ -106,10 +97,41 @@ export function Contact() {
                           {c.value}
                         </p>
                       </div>
-                    </a>
-                  </li>
-                ))}
+                    </>
+                  );
+                  return (
+                    <li key={c.label}>
+                      {c.href ? (
+                        <a
+                          href={c.href}
+                          className="group flex items-center gap-3 rounded-xl border border-border/60 bg-background/40 p-3 transition-all hover:border-border hover:bg-accent/30"
+                        >
+                          {content}
+                        </a>
+                      ) : (
+                        <div className="flex items-center gap-3 rounded-xl border border-border/60 bg-background/40 p-3">
+                          {content}
+                        </div>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
+
+              <div className="mt-6 flex items-center gap-2 border-t border-border/60 pt-6">
+                {socials.map((s) => (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.label}
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-border/60 bg-background/40 text-muted-foreground transition-all hover:border-border hover:bg-accent/30 hover:text-foreground"
+                  >
+                    <s.icon className="h-4 w-4" />
+                  </a>
+                ))}
+              </div>
             </Card>
           </motion.div>
 
@@ -158,26 +180,14 @@ export function Contact() {
                 </div>
                 <Button
                   type="submit"
-                  disabled={loading}
                   className="w-full rounded-full sm:w-auto"
                 >
-                  {loading ? (
-                    <>
-                      <Loader2 className="mr-1 h-4 w-4 animate-spin" />
-                      Sending
-                    </>
-                  ) : sent ? (
-                    <>
-                      <Check className="mr-1 h-4 w-4" />
-                      Sent
-                    </>
-                  ) : (
-                    <>
-                      <Send className="mr-1 h-4 w-4" />
-                      Send message
-                    </>
-                  )}
+                  <Send className="mr-1 h-4 w-4" />
+                  Send message
                 </Button>
+                <p className="text-xs text-muted-foreground">
+                  This opens your email app with the message pre-filled — nothing is sent from this page directly.
+                </p>
               </form>
             </Card>
           </motion.div>

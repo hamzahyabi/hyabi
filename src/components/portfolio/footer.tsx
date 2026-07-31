@@ -2,22 +2,44 @@ import { Mail } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "./icons";
 
 const socials = [
+  { icon: LinkedinIcon, href: "https://www.linkedin.com/in/hamzahyabi/", label: "LinkedIn" },
   { icon: GithubIcon, href: "https://github.com/HamzaHyabi", label: "GitHub" },
-  {
-    icon: LinkedinIcon,
-    href: "https://www.linkedin.com/in/hamzahyabi/",
-    label: "LinkedIn",
-  },
-  { icon: Mail, href: "mailto:hamzahyabi0@gmail.com", label: "Email" },
+  { icon: Mail, href: "mailto:hamza.hyabi@hotmail.com", label: "Email" },
+];
+
+const links = [
+  { href: "#about", label: "About" },
+  { href: "#experience", label: "Experience" },
+  { href: "#community", label: "Community" },
+  { href: "#skills", label: "Skills" },
+  { href: "#education", label: "Education" },
+  { href: "#contact", label: "Contact" },
 ];
 
 export function Footer() {
   return (
     <footer className="border-t border-border/60 px-4 py-10">
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 sm:flex-row">
-        <p className="text-xs text-muted-foreground">
-          © {new Date().getFullYear()} Hamza Hyabi. Built with Next.js & Tailwind.
-        </p>
+      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 sm:flex-row">
+        <div className="flex flex-col items-center gap-3 sm:items-start">
+          <p className="text-sm font-medium tracking-tight">Hamza Hyabi</p>
+          <p className="text-xs text-muted-foreground">
+            © {new Date().getFullYear()} Hamza Hyabi. Built with React &amp; Tailwind CSS.
+          </p>
+        </div>
+
+        <ul className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+          {links.map((l) => (
+            <li key={l.href}>
+              <a
+                href={l.href}
+                className="text-xs text-muted-foreground transition-colors hover:text-foreground"
+              >
+                {l.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+
         <div className="flex items-center gap-1">
           {socials.map((s) => (
             <a

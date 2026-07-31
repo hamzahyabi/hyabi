@@ -1,5 +1,5 @@
 {
-  "name": "shadcn-ui-template",
+  "name": "hamza-hyabi-portfolio",
   "private": true,
   "version": "0.0.1",
   "type": "module",
@@ -13,7 +13,6 @@
     "@hookform/resolvers": "^5.2.2",
     "@react-three/fiber": "^9.6.0",
     "@react-three/postprocessing": "^3.0.4",
-    "@supabase/supabase-js": "^2.103.3",
     "@tailwindcss/vite": "^4.2.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -44,6 +43,7 @@
     "@types/node": "^24.12.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "@types/three": "^0.184.0",
     "@vitejs/plugin-react": "^5.2.0",
     "typescript": "~5.9.3",
     "vite": "^7.3.1"
