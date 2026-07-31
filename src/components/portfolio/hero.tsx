@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Download, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import Dither from "./dither";
+import Plasma from "./plasma";
 
 export function Hero() {
   return (
@@ -11,16 +11,16 @@ export function Hero() {
       className="dark relative flex min-h-svh items-center justify-center overflow-hidden bg-background px-4 pt-24 text-foreground"
     >
       <div aria-hidden className="absolute inset-0 z-0">
-        <Dither
-          waveColor={[0.16, 0.32, 0.75]}
-          disableAnimation={false}
-          enableMouseInteraction={true}
-          mouseRadius={0.3}
-          colorNum={4.2}
-          waveAmplitude={0.37}
-          waveFrequency={3}
-          waveSpeed={0.05}
-          pixelSize={2}
+        <Plasma
+          color="#0037ff"
+          speed={0.6}
+          direction="forward"
+          scale={1.4}
+          opacity={1}
+          mouseInteractive={false}
+          renderScale={0.65}
+          maxDpr={2.5}
+          iterations={50}
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/10 via-background/40 to-background" />
       </div>
